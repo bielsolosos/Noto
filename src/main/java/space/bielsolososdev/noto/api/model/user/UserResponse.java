@@ -1,6 +1,6 @@
 package space.bielsolososdev.noto.api.model.user;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -9,7 +9,7 @@ public record UserResponse(
         String username,
         String email,
         boolean isActive,
-        LocalDateTime createdAt,
+        OffsetDateTime createdAt,
         Set<String> roles
 ) {}
 

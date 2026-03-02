@@ -80,7 +80,7 @@ public class UserService {
         entity.getRoles().add(roleRepository.findByName("ROLE_USER").get());
 
         var savedUser = repository.save(entity);
-        log.info("✅ Novo usuário criado com sucesso: {} (ID: {})", username, savedUser.getId());
+        log.info("Novo usuário criado com sucesso: {} (ID: {})", username, savedUser.getId());
 
         return savedUser;
     }
