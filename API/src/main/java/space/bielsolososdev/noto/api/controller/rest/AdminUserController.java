@@ -14,9 +14,11 @@ import space.bielsolososdev.noto.api.model.MessageResponse;
 import space.bielsolososdev.noto.api.model.user.ChangePasswordRequest;
 import space.bielsolososdev.noto.api.model.user.EditUserRequest;
 import space.bielsolososdev.noto.api.model.user.UserResponse;
+import space.bielsolososdev.noto.domain.users.repository.UserRepository;
 import space.bielsolososdev.noto.domain.users.service.AdminUserService;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -26,11 +28,19 @@ import java.util.UUID;
 public class AdminUserController {
 
     private final AdminUserService userService;
+    //TODO remover
+    private final UserRepository userRepository;
 
     @GetMapping
     public ResponseEntity<Page<UserResponse>> listUsers(@PageableDefault(size = 20, sort = "createdAt") Pageable pageable, @RequestParam(required = false) String filter, @RequestParam(required = false) Boolean isActive, @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime createdAfter, @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime createdBefore) {
         Page<UserResponse> response = userService.listUsers(pageable, filter, isActive, createdAfter, createdBefore).map(UserMapper::toUserResponse);
         return ResponseEntity.ok(response);
+    }
+
+    //TODO remover
+    @GetMapping("/list")
+    public ResponseEntity<List<UserResponse>> listUsersToList() {
+        return ResponseEntity.ok(userRepository.findAll().stream().map(UserMapper::toUserResponse).toList());
     }
 
     @PatchMapping("/{id}/credentials")

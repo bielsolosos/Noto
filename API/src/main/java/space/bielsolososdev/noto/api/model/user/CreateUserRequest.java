@@ -10,4 +10,3 @@ public record CreateUserRequest(
         @NotBlank @Size(min = 6, message = "A senha deve ter no mínimo 6 caracteres") String password,
         @NotBlank @Size(min = 6, message = "A senha deve ter no mínimo 6 caracteres") String confirmPassword
 ) {}
-

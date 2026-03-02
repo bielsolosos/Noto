@@ -14,7 +14,7 @@ import org.springframework.validation.annotation.Validated;
 public class NotoProperties {
 
     private Jwt jwt = new Jwt();
-    private boolean registrationEnabled = false;
+    private boolean registrationEnabled;
 
     @Getter
     @Setter
