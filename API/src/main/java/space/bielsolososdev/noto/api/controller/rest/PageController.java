@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import space.bielsolososdev.noto.api.mapper.PageMapper;
 import space.bielsolososdev.noto.api.mapper.PageRequest;
 import space.bielsolososdev.noto.api.mapper.PageResponse;
+import space.bielsolososdev.noto.api.model.MessageResponse;
 import space.bielsolososdev.noto.api.model.page.PageSummaryResponse;
 import space.bielsolososdev.noto.domain.pages.service.PageService;
 
@@ -30,9 +31,9 @@ public class PageController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deletePage(@PathVariable UUID id) {
+    public ResponseEntity<MessageResponse> deletePage(@PathVariable UUID id) {
         service.delete(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(new MessageResponse("Página deletado com sucesso"));
     }
 
     @PutMapping("/{id}")

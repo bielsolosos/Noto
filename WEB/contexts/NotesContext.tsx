@@ -213,7 +213,7 @@ export function NotesProvider({ children }: { children: ReactNode }) {
     data: { title: string; content: string }
   ) => {
     try {
-      const response = await api.put<Page>(`/pages/${pageId}`, data);
+      const response = await api.put<Page>(`api/pages/${pageId}`, data);
 
       // Atualizar página selecionada
       if (selectedPageId === pageId) {
