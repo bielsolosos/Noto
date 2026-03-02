@@ -11,6 +11,8 @@ import space.bielsolososdev.noto.domain.users.model.User;
 import space.bielsolososdev.noto.domain.users.repository.RoleRepository;
 import space.bielsolososdev.noto.domain.users.repository.UserRepository;
 
+import java.util.UUID;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -38,7 +40,7 @@ public class UserService {
         });
     }
 
-    public User changePassword(Long id, String oldPassword, String newPassword) {
+    public User changePassword(UUID id, String oldPassword, String newPassword) {
         log.debug("Tentativa de alteração de senha para o usuário com ID: {}", id);
 
         var user = repository.findById(id).orElseThrow(() -> {
@@ -83,7 +85,7 @@ public class UserService {
         return savedUser;
     }
 
-    public User editUser(Long id, String username, String email) {
+    public User editUser(UUID id, String username, String email) {
         var entity = getEntity(id);
 
         verifyUserIntegrity(entity);
@@ -109,7 +111,7 @@ public class UserService {
         return savedUser;
     }
 
-    public User getEntity(Long id) {
+    public User getEntity(UUID id) {
         return repository.findById(id)
                 .orElseThrow(() -> new BusinessException("Usuário não encontrado no sistema."));
     }

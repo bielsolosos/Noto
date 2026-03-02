@@ -12,6 +12,7 @@ import space.bielsolososdev.noto.domain.users.repository.UserRepository;
 import space.bielsolososdev.noto.domain.users.repository.specification.UserSpecification;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -28,7 +29,7 @@ public class AdminUserService {
         return repository.findAll(spec, pageable);
     }
 
-    public User toggleUserActive(Long id) {
+    public User toggleUserActive(UUID id) {
         log.debug("Alternando status ativo do usuário com ID: {}", id);
 
         var user = userService.getEntity(id);
@@ -41,7 +42,7 @@ public class AdminUserService {
         return savedUser;
     }
 
-    public void deleteUser(Long id) {
+    public void deleteUser(UUID id) {
         log.debug("Tentativa de deletar usuário com ID: {}", id);
 
         var user = userService.getEntity(id);
@@ -50,7 +51,7 @@ public class AdminUserService {
         log.warn("Usuário {} (ID: {}) foi DELETADO do sistema", user.getUsername(), id);
     }
 
-    public User adminChangePassword(Long id, String newPassword) {
+    public User adminChangePassword(UUID id, String newPassword) {
         log.debug("Admin alterando senha do usuário com ID: {}", id);
 
         var user = userService.getEntity(id);
@@ -62,7 +63,7 @@ public class AdminUserService {
         return savedUser;
     }
 
-    public User adminEditUser(Long id, String username, String email) {
+    public User adminEditUser(UUID id, String username, String email) {
         var entity = userService.getEntity(id);
 
         if (!entity.getUsername().equals(username)) {
