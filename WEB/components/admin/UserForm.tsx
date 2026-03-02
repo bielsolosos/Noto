@@ -35,7 +35,7 @@ export function UserForm({ onSuccess }: UserFormProps) {
 
     try {
       setLoading(true);
-      await api.post("/users", formData);
+      await api.post("api/users", formData);
       onSuccess();
       setFormData({ username: "", email: "", apiKey: "", role_admin: false });
     } catch (error: any) {

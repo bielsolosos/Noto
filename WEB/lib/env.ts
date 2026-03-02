@@ -13,8 +13,6 @@ const getEnvVar = (key: string, defaultValue?: string): string => {
 };
 
 export const env = {
-  // API Configuration
-  AUTH_API_KEY: getEnvVar("AUTH_API_KEY"),
   // Exposto ao browser; usar NEXT_PUBLIC_ para estar disponível no cliente
   NEXT_PUBLIC_API_URL: getEnvVar(
     "NEXT_PUBLIC_API_URL",

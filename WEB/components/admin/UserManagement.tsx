@@ -50,7 +50,7 @@ export function UserManagement() {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const response = await api.get("/users");
+      const response = await api.get("api/users");
       setUsers(response.data);
     } catch (error: any) {
       toast.error("Erro ao carregar usuários");
@@ -65,7 +65,7 @@ export function UserManagement() {
 
   const handleDeleteUser = async (userId: string) => {
     try {
-      await api.delete(`/users/${userId}`);
+      await api.delete(`api/users/${userId}`);
       toast.success("Usuário deletado com sucesso");
       fetchUsers();
     } catch (error: any) {
@@ -75,7 +75,7 @@ export function UserManagement() {
 
   const handleToggleAdmin = async (userId: string, currentRole: boolean) => {
     try {
-      await api.put(`/users/${userId}/role`, {
+      await api.put(`api/users/${userId}/role`, {
         role_admin: !currentRole,
       });
       toast.success(
