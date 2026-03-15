@@ -10,6 +10,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { useAuth } from "@/contexts/AuthContext";
@@ -18,7 +19,7 @@ import { useSidebar } from "@/contexts/SidebarContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useMobile } from "@/hooks/useMobile";
 import { cn } from "@/lib/utils";
-import { BookOpen, LogOut, Moon, Plus, Settings, Shield, Sun } from "lucide-react";
+import { BookOpen, LogOut, Moon, Plus, Search, Settings, Shield, Sun } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useMemo, useRef } from "react";
 
@@ -27,7 +28,14 @@ interface SidebarPanelProps {
 }
 
 function SidebarPanel({ isMobileLayout }: SidebarPanelProps) {
-  const { createNewPage, isLoadingList, isCreating } = useNotes();
+  const {
+    createNewPage,
+    isLoadingList,
+    isCreating,
+    filteredPageSummaries,
+    searchQuery,
+    setSearchQuery,
+  } = useNotes();
   const { closeSidebar } = useSidebar();
   const { user, logout } = useAuth();
   const { darkMode, toggleDarkMode } = useTheme();
@@ -78,6 +86,16 @@ function SidebarPanel({ isMobileLayout }: SidebarPanelProps) {
             {isCreating ? "Criando..." : "Novo"}
           </Button>
         </div>
+
+        <div className="relative mt-3">
+          <Search className="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+            placeholder="Buscar por titulo, data ou hora"
+            className="h-9 pl-8"
+          />
+        </div>
       </div>
 
       <ScrollArea className="flex-1 overflow-y-auto">
@@ -85,7 +103,10 @@ function SidebarPanel({ isMobileLayout }: SidebarPanelProps) {
           {isLoadingList ? (
             <PageListSkeleton />
           ) : (
-            <PageList onPageSelect={isMobileLayout ? closeSidebar : undefined} />
+            <PageList
+              pages={filteredPageSummaries}
+              onPageSelect={isMobileLayout ? closeSidebar : undefined}
+            />
           )}
         </div>
       </ScrollArea>
