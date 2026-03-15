@@ -24,7 +24,7 @@ public class UserController {
     private final UserService service;
     private final NotoProperties props;
 
-    @PatchMapping("/change-password")
+    @PostMapping("/change-password")
     public ResponseEntity<MessageResponse> changePassword(@Valid @RequestBody ChangePasswordRequest request) {
         service.changePassword(service.getMe().getId(), request.oldPassword(), request.newPassword());
         return ResponseEntity.ok(new MessageResponse("Senha alterada com sucesso"));
