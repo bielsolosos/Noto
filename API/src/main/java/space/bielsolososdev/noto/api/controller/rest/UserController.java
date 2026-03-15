@@ -29,8 +29,8 @@ public class UserController {
         service.changePassword(service.getMe().getId(), request.oldPassword(), request.newPassword());
         return ResponseEntity.ok(new MessageResponse("Senha alterada com sucesso"));
     }
-
-    @PatchMapping("/edit-credentials")
+    
+    @PostMapping("/edit-credentials")
     public ResponseEntity<UserResponse> editUser(@Valid @RequestBody EditUserRequest request) {
         return ResponseEntity.ok(
                 UserMapper.toUserResponse(
@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody CreateUserRequest request) throws NoHandlerFoundException {
+    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody CreateUserRequest request)  throws NoHandlerFoundException {
         if (!props.isRegistrationEnabled()) {
             throw new NoHandlerFoundException("POST", "/api/users/register", new org.springframework.http.HttpHeaders());
         }
